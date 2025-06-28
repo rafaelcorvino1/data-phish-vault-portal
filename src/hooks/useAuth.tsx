@@ -4,8 +4,10 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 interface User {
   id: string;
   email: string;
+  name?: string;
   is_pagante: boolean;
   data_criacao: string;
+  is_admin?: boolean;
 }
 
 interface AuthContextType {
@@ -36,6 +38,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Admin account credentials
+  const ADMIN_CREDENTIALS = {
+    name: 'corvinao157',
+    password: 'Rafael123!',
+    email: 'admin@pegatrouxa.com'
+  };
+
   // Simular autenticação - em produção seria conectado ao backend
   const login = async (email: string, password: string) => {
     setIsLoading(true);
@@ -44,6 +53,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       // Simulação de login
       await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Check if it's admin login (by name or email)
+      if ((email === ADMIN_CREDENTIALS.name || email === ADMIN_CREDENTIALS.email) && 
+          password === ADMIN_CREDENTIALS.password) {
+        const adminUser: User = {
+          id: 'admin-1',
+          email: ADMIN_CREDENTIALS.email,
+          name: ADMIN_CREDENTIALS.name,
+          is_pagante: true, // Admin always has access
+          is_admin: true,
+          data_criacao: new Date().toISOString()
+        };
+        
+        setUser(adminUser);
+        localStorage.setItem('auth_token', 'admin_jwt_token');
+        return;
+      }
       
       // Simular usuário não pagante para demonstrar o redirecionamento
       const mockUser: User = {
@@ -107,13 +133,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const token = localStorage.getItem('auth_token');
     if (token) {
       // Em produção, validaria o token com o backend
-      const mockUser: User = {
-        id: '1',
-        email: 'user@example.com',
-        is_pagante: false,
-        data_criacao: new Date().toISOString()
-      };
-      setUser(mockUser);
+      if (token === 'admin_jwt_token') {
+        const adminUser: User = {
+          id: 'admin-1',
+          email: ADMIN_CREDENTIALS.email,
+          name: ADMIN_CREDENTIALS.name,
+          is_pagante: true,
+          is_admin: true,
+          data_criacao: new Date().toISOString()
+        };
+        setUser(adminUser);
+      } else {
+        const mockUser: User = {
+          id: '1',
+          email: 'user@example.com',
+          is_pagante: false,
+          data_criacao: new Date().toISOString()
+        };
+        setUser(mockUser);
+      }
     }
   }, []);
 
