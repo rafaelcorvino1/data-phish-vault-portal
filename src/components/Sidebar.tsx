@@ -1,6 +1,6 @@
 
 import { Button } from '@/components/ui/button';
-import { FileText, BarChart3, Settings, LogOut, Shield, Terminal, Zap, Activity } from 'lucide-react';
+import { FileText, BarChart3, Settings, LogOut, Shield, Activity } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface SidebarProps {
@@ -14,56 +14,56 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const menuItems = [
     {
       id: 'overview',
-      label: 'DASHBOARD',
+      label: 'Visão Geral',
       icon: BarChart3
     },
     {
       id: 'generate',
-      label: 'PDF_GEN',
+      label: 'Gerar PDF',
       icon: FileText
     },
     {
       id: 'analytics',
-      label: 'MONITOR',
+      label: 'Analytics',
       icon: Activity
     },
     {
       id: 'settings',
-      label: 'CONFIG',
+      label: 'Configurações',
       icon: Settings
     }
   ];
 
   return (
-    <div className="w-64 bg-black/90 border-r border-green-400/30 min-h-screen backdrop-blur-sm">
+    <div className="w-64 bg-card border-r min-h-screen">
       <div className="p-6">
         <div className="flex items-center space-x-2 mb-8">
           <div className="relative">
-            <Shield className="h-8 w-8 text-green-400" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+            <Shield className="h-8 w-8 text-primary" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full pulse-dot"></div>
           </div>
           <div>
-            <span className="text-xl font-bold text-green-400 font-mono">
+            <span className="text-xl font-bold text-primary">
               PEGATROUXA
             </span>
-            <div className="text-xs text-cyan-400 font-mono">v2.1.337</div>
+            <div className="text-xs text-muted-foreground">v2.1.0</div>
           </div>
         </div>
 
         {/* System Status */}
-        <div className="mb-6 p-3 bg-green-900/10 border border-green-400/20 rounded-lg">
+        <div className="mb-6 p-3 bg-muted/50 border rounded-lg">
           <div className="flex items-center space-x-2 mb-2">
-            <Terminal className="h-4 w-4 text-green-400" />
-            <span className="text-sm font-mono text-green-400">SYSTEM</span>
+            <Activity className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium">Sistema</span>
           </div>
-          <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+          <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="flex items-center space-x-1">
-              <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-gray-300">CPU: 45%</span>
+              <div className="w-2 h-2 bg-green-500 rounded-full pulse-dot"></div>
+              <span className="text-muted-foreground">CPU: 45%</span>
             </div>
             <div className="flex items-center space-x-1">
-              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-ping"></div>
-              <span className="text-gray-300">NET: OK</span>
+              <div className="w-2 h-2 bg-blue-500 rounded-full pulse-dot"></div>
+              <span className="text-muted-foreground">Rede: OK</span>
             </div>
           </div>
         </div>
@@ -75,43 +75,42 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
               <Button
                 key={item.id}
                 variant="ghost"
-                className={`w-full justify-start font-mono text-left transition-all duration-300 ${
+                className={`w-full justify-start transition-all duration-200 ${
                   activeTab === item.id 
-                    ? 'bg-green-900/30 text-green-400 border border-green-400/30 shadow-lg shadow-green-400/10' 
-                    : 'text-gray-400 hover:bg-green-900/10 hover:text-green-400 border border-transparent hover:border-green-400/20'
+                    ? 'bg-primary/10 text-primary border border-primary/20' 
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`}
                 onClick={() => setActiveTab(item.id)}
               >
                 <Icon className="h-4 w-4 mr-3" />
                 <span className="flex-1">{item.label}</span>
                 {activeTab === item.id && (
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse ml-2"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full pulse-dot"></div>
                 )}
               </Button>
             );
           })}
         </nav>
 
-        <div className="mt-8 pt-6 border-t border-green-400/20">
+        <div className="mt-8 pt-6 border-t">
           <Button
             variant="ghost"
-            className="w-full justify-start text-red-400 hover:bg-red-900/20 hover:text-red-300 font-mono border border-transparent hover:border-red-400/30 transition-all duration-300"
+            className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
             onClick={logout}
           >
             <LogOut className="h-4 w-4 mr-3" />
-            <span>LOGOUT</span>
-            <Zap className="h-3 w-3 ml-auto animate-pulse" />
+            <span>Sair</span>
           </Button>
         </div>
 
         {/* Footer info */}
-        <div className="mt-6 p-3 bg-black/50 border border-gray-800 rounded-lg">
-          <div className="text-xs font-mono text-gray-500 text-center">
+        <div className="mt-6 p-3 bg-muted/30 border rounded-lg">
+          <div className="text-xs text-muted-foreground text-center">
             <div className="flex items-center justify-center space-x-1 mb-1">
-              <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-              <span>SECURE CONNECTION</span>
+              <div className="w-2 h-2 bg-green-500 rounded-full pulse-dot"></div>
+              <span>Conexão Segura</span>
             </div>
-            <div className="text-gray-600">© 2024 PEGATROUXA</div>
+            <div className="text-muted-foreground/70">© 2024 PEGATROUXA</div>
           </div>
         </div>
       </div>

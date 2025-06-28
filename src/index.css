@@ -18,8 +18,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 259 94% 51%;
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -35,7 +35,7 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 259 94% 51%;
 
     --radius: 0.5rem;
 
@@ -46,57 +46,46 @@ All colors MUST be HSL.
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Hacker theme colors */
-    --hacker-bg: 0 0% 5%;
-    --hacker-surface: 0 0% 8%;
-    --hacker-border: 120 100% 25%;
-    --hacker-accent: 120 100% 50%;
-    --hacker-text: 120 30% 85%;
-    --hacker-text-muted: 120 20% 60%;
-    --hacker-cyan: 180 100% 50%;
-    --hacker-purple: 270 100% 75%;
-    --hacker-red: 0 100% 65%;
+    --sidebar-ring: 259 94% 51%;
   }
 
   .dark {
-    --background: 0 0% 5%;
-    --foreground: 120 30% 85%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 120 30% 85%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 120 30% 85%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 120 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 259 94% 51%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 120 30% 85%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 120 20% 60%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 0 0% 12%;
-    --accent-foreground: 120 30% 85%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 100% 65%;
-    --destructive-foreground: 120 30% 85%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 120 100% 50%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 259 94% 51%;
 
-    --sidebar-background: 0 0% 6%;
-    --sidebar-foreground: 120 30% 85%;
-    --sidebar-primary: 120 100% 50%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 120 30% 85%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 120 100% 50%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 94.1%;
+    --sidebar-primary-foreground: 220.9 39.3% 11%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 259 94% 51%;
   }
 }
 
@@ -107,116 +96,33 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }
 
-/* Hacker-specific styles */
-.hacker-gradient {
-  background: linear-gradient(45deg, 
-    hsl(var(--hacker-bg)), 
-    hsl(var(--hacker-surface)), 
-    hsl(var(--hacker-bg))
-  );
+/* Subtle gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%);
 }
 
-.hacker-border {
-  border: 1px solid hsl(var(--hacker-border));
-  box-shadow: 0 0 10px hsl(var(--hacker-border) / 0.3);
+.card-hover {
+  transition: all 0.2s ease-in-out;
 }
 
-.hacker-glow {
-  animation: glow 2s ease-in-out infinite alternate;
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
-.matrix-bg {
-  background-image: 
-    linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
+.pulse-dot {
+  animation: pulse 2s infinite;
 }
 
-.terminal-cursor::after {
-  content: '▋';
-  animation: blink 1s infinite;
-  color: hsl(var(--hacker-accent));
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px hsl(var(--hacker-accent) / 0.5);
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
   }
-  to {
-    box-shadow: 0 0 20px hsl(var(--hacker-accent) / 0.8), 0 0 30px hsl(var(--hacker-accent) / 0.4);
-  }
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-.scan-line {
-  position: relative;
-  overflow: hidden;
-}
-
-.scan-line::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, hsl(var(--hacker-accent)), transparent);
-  animation: scan 3s infinite;
-}
-
-@keyframes scan {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-.glitch {
-  position: relative;
-}
-
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.glitch::before {
-  animation: glitch-1 0.5s infinite;
-  color: hsl(var(--hacker-cyan));
-  z-index: -1;
-}
-
-.glitch::after {
-  animation: glitch-2 0.5s infinite;
-  color: hsl(var(--hacker-red));
-  z-index: -2;
-}
-
-@keyframes glitch-1 {
-  0%, 14%, 15%, 49%, 50%, 99%, 100% {
-    transform: translate(0, 0);
-  }
-  15%, 49% {
-    transform: translate(-2px, 0);
-  }
-}
-
-@keyframes glitch-2 {
-  0%, 20%, 21%, 62%, 63%, 99%, 100% {
-    transform: translate(0, 0);
-  }
-  21%, 62% {
-    transform: translate(2px, 0);
+  50% {
+    opacity: 0.5;
   }
 }
